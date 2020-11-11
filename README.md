@@ -1,6 +1,14 @@
-# Capgemini Hackathon 2020
+# CYF & Capgemini Hackathon 2020
 
-To run app locally:
+Team Hack Slash
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/en/) (12+)
+- Terminal access
+- Web browser
+
+## To run app locally:
 
 1. Fork and clone the project.
 2. Run `npm run install` in the project root folder. If you wish to install and run only backend or frontend part of the app, then `cd` into that folder and run `npm install`. For example: `cd backend && npm install`.
