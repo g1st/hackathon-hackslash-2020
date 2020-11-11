@@ -4,7 +4,7 @@
   "description": "Capgemini hackathon 2020",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "npm --prefix ./backend install && npm --prefix ./frontend install"
   },
   "author": "Hack Slash team",
   "license": "ISC"
