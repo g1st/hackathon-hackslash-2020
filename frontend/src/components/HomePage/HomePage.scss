@@ -1,0 +1,35 @@
+@import '../../styles/variables.scss';
+@import '~bootstrap/scss/vendor/_rfs.scss';
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.app-title {
+  @include font-size(4rem);
+  margin-bottom: 0.75em;
+}
+
+.features-list {
+  margin-bottom: 3em;
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.feature-title {
+  margin-left: 1rem;
+  @include font-size(2rem);
+}
+
+.bullet {
+  display: inline-block;
+  min-width: 1em;
+  min-height: 1em;
+  background-color: $cyf-red;
+  opacity: 0.5;
+  border-radius: 50%;
+}
