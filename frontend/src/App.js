@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
   PublicPage,
   Classes,
@@ -6,8 +6,9 @@ import {
   LoginPage,
   Navbar,
   PrivateRoute,
-} from './components';
-import { ProvideAuth } from './hooks/use-auth';
+} from "./components";
+import Logo from "./components/Logo";
+import { ProvideAuth } from "./hooks/use-auth";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Router>
         <div>
           <header>
-            header here Amanul Islam
+            <Logo/>
             <Navbar />
           </header>
           <ul>
