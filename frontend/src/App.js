@@ -8,6 +8,7 @@ import {
   PrivateRoute,
 } from './components';
 import { ProvideAuth } from './hooks/use-auth';
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
               <Class />
             </PrivateRoute>
           </Switch>
-          <footer>footer here</footer>
+          <Footer/>
         </div>
       </Router>
     </ProvideAuth>
