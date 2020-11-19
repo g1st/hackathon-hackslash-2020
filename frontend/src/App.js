@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { Classes, Class, Navbar, PrivateRoute, Home } from './components';
 import { ProvideAuth } from './hooks/use-auth';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
               <Class />
             </PrivateRoute>
           </Switch>
+          <Footer />
         </Container>
-        <footer>footer here</footer>
       </Router>
     </ProvideAuth>
   );
