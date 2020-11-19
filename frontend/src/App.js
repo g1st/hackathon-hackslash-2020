@@ -1,38 +1,25 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {
-  PublicPage,
-  Classes,
-  Class,
-  LoginPage,
-  Navbar,
-  PrivateRoute,
-} from "./components";
+
 import Logo from "./components/Logo";
-import { ProvideAuth } from "./hooks/use-auth";
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import { Classes, Class, Navbar, PrivateRoute, Home } from './components';
+import { ProvideAuth } from './hooks/use-auth';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <ProvideAuth>
       <Router>
-        <div>
-          <header>
-            <Logo/>
-            <Navbar />
-          </header>
-          <ul>
-            <li>
-              <Link to="/public">Public Page</Link>
-            </li>
-            <li>
-              <Link to="/classes">Classes Page</Link>
-            </li>
-          </ul>
+
+        <header>
+          header here Amanul Islam
+          <Navbar />
+        </header>
+        <Container>
           <Switch>
-            <Route path="/public">
-              <PublicPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
+            <Route exact path="/">
+              <Home />
             </Route>
             <PrivateRoute path="/classes">
               <Classes />
@@ -41,8 +28,8 @@ function App() {
               <Class />
             </PrivateRoute>
           </Switch>
-          <footer>footer here</footer>
-        </div>
+          <Footer />
+        </Container>
       </Router>
     </ProvideAuth>
   );
