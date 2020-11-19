@@ -16,7 +16,7 @@ function App() {
       <Router>
         <div>
           <header>
-            header here
+            header here Amanul Islam
             <Navbar />
           </header>
           <ul>
