@@ -1,5 +1,5 @@
 
-import Logo from "./components/Logo";
+import Logo from "./components/Header/Logo";
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';

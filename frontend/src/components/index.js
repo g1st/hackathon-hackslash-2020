@@ -1,4 +1,4 @@
-export { default as Navbar } from './Navbar';
+export { default as Navbar } from './Header/Navbar';
 export { default as PrivateRoute } from './PrivateRoute';
 export { default as Classes } from './ClassesPage/Classes';
 export { default as Class } from './ClassPage/Class';

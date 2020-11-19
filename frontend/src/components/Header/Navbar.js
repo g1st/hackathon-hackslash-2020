@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../hooks/use-auth';
+import { useAuth } from '../../hooks/use-auth';
 
 const Navbar = () => {
   let history = useHistory();
