@@ -22,8 +22,8 @@ function App() {
               <Class />
             </PrivateRoute>
           </Switch>
-          <Footer />
         </Container>
+        <Footer />
       </Router>
     </ProvideAuth>
   );
