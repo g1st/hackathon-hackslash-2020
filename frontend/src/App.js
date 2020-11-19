@@ -1,17 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import { Classes, Class, Navbar, PrivateRoute, Home } from './components';
-import { ProvideAuth } from './hooks/use-auth';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import { Classes, Class, Header, PrivateRoute, Home } from "./components";
+import { ProvideAuth } from "./hooks/use-auth";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <ProvideAuth>
       <Router>
-        <header>
-          header here Amanul Islam
-          <Navbar />
-        </header>
+        <Header />
+
         <Container>
           <Switch>
             <Route exact path="/">
