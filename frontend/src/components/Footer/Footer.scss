@@ -6,10 +6,19 @@ $footerPadding: 1rem;
 	font-weight: $footerFont;
 	background-color: $bgColor;
 	text-align: center;
+	margin-top: auto;
 }
 .footerCopyRight {
 	padding-bottom: $footerPadding;
 }
-.registration {
-	padding-bottom: $footerPadding;
+#root {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }
