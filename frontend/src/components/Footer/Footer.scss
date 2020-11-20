@@ -1,0 +1,15 @@
+$bgColor: #efefef;
+$footerFont: 100;
+$footerPadding: 1rem;
+
+.footer {
+	font-weight: $footerFont;
+	background-color: $bgColor;
+	text-align: center;
+}
+.footerCopyRight {
+	padding-bottom: $footerPadding;
+}
+.registration {
+	padding-bottom: $footerPadding;
+}

@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import { Classes, Class, Header, PrivateRoute, Home } from "./components";
+import { Classes, Class, Header, PrivateRoute, Home, } from "./components";
 import { ProvideAuth } from "./hooks/use-auth";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer"
+
+
 
 function App() {
   return (
