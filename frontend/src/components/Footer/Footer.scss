@@ -7,6 +7,7 @@ $footerPadding: 1rem;
 	background-color: $bgColor;
 	text-align: center;
 	margin-top: auto;
+	padding: 1.5rem 0;
 }
 .footerCopyRight {
 	padding-bottom: $footerPadding;
@@ -14,11 +15,5 @@ $footerPadding: 1rem;
 #root {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-}
-
-body {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
+	min-height: 100vh;
 }
