@@ -30,4 +30,20 @@ app.get("/cyf-classes", function (req, res) {
   });
 });
 
+app.get("/modules", function (req, res) {
+  let selectModules = `select * from module`; //modify this line
+  pool.query(selectModules, (err, results) => {
+    if (err) {
+      res.json(null);
+      throw err;
+    }
+
+    if (results.rows.length > 0) {
+      res.json(results.rows); 
+    }
+  });
+});
+
+
+
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
