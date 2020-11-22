@@ -3,5 +3,15 @@ header {
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 4rem;
+}
+.registerBtn {
+  padding: 0.2rem 1.5rem;
+  margin-left: 1rem;
+}
+.btnDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.2rem;
 }

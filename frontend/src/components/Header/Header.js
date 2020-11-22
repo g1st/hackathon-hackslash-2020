@@ -9,21 +9,26 @@ const Header = () => {
 
   return (
     <header>
-      <Logo />
-      {auth.user ? (
-        <p>
-          Welcome {auth.user.name}!
-          <button
-            onClick={() => {
-              auth.signout(() => history.push("/"));
-            }}
-          >
-            Sign out
-          </button>
-        </p>
-      ) : (
-        <button>Register</button>
-      )}
+      <div>
+        <Logo />
+      </div>
+      <div className="btnDiv">
+        {auth.user ? (
+          <p>
+            Welcome {auth.user.name}!
+            <button
+              className="registerBtn btn-dark"
+              onClick={() => {
+                auth.signout(() => history.push("/"));
+              }}
+            >
+              Sign out
+            </button>
+          </p>
+        ) : (
+          <button className="registerBtn btn-dark">Register</button>
+        )}
+      </div>
     </header>
   );
 };
