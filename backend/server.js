@@ -59,4 +59,20 @@ app.get("/cyf-classes/:className/students", function (req, res) {
 });
 
 
+
+app.get("/cyf-classes/:className/attendance", function (req, res) {
+  const { className } = req.params;
+  let selectAttendance = `select * from attendance where cohort_name=$1 `; 
+  pool.query(selectAttendance,[className],(err, results) => {
+    if (err) {
+      res.json(null)
+      throw err;
+    }
+    if (results.rows.length > 0) {
+      res.json(results.rows);
+    }
+  });
+});
+
+
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
