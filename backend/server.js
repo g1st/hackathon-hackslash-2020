@@ -57,6 +57,67 @@ app.get ('/notAuthenticated', (req, res) => {
   res.status (401).send ('notAuthenticated');
 });
 
+app.post ('/users/register', async (req, res) => {
+  let {name, email, password, password2} = req.body;
+  console.log ({
+    name,
+    email,
+    password,
+    password2,
+  });
+  let errors = [];
+  if (!name || !email || !password || !password2) {
+    errors.push ({message: 'Please fill all of the fields'});
+  }
+
+  if (password.length < 6) {
+    errors.push ({message: 'Password at least should be 6 characters'});
+  }
+
+  if (password != password2) {
+    errors.push ({message: 'Passwords do not match'});
+  }
+
+  if (errors.length > 0) {
+    res.render ('register', {errors});
+  } else {
+    //form validation has passed
+    let hashedPassword = await bcrypt.hash (password, 10);
+    console.log (hashedPassword);
+
+    pool.query (
+      `select *from users where email = $1`,
+      [email],
+      (err, resuls) => {
+        if (err) {
+          throw err;
+        }
+        console.log (resuls.rows);
+
+        if (resuls.rows.length > 0) {
+          errors.push ({message: 'Email is already registered'});
+          res.render ('register', {errors});
+        } else {
+          pool.query (
+            `insert into users(name,email,password)
+            values($1,$2,$3)
+         returning id,password `,
+            [name, email, hashedPassword],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log (results.rows);
+              req.flash ('success_msg', 'you are now registered please log in');
+              res.redirect ('/users/login');
+            }
+          );
+        }
+      }
+    );
+  }
+});
+
 app.get ('/cyf-classes', function (req, res) {
   let selectCohorts = `select * from cohort `;
   pool.query (selectCohorts, (err, results) => {
