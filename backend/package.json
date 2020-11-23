@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "repopulate-db:local": "dropdb --if-exists cyf_student_tracker && createdb cyf_student_tracker && psql -d cyf_student_tracker -f ./db/final_cyf_fake_data.sql"
   },
   "author": "Hack Slash team",
   "license": "ISC",
