@@ -2,10 +2,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LoginForm from '../LoginForm/LoginForm';
 import HeroImage from './HeroImage/HeroImage';
-import './HomePage.scss';
-import RegisterPage from '../RegisterPage/RegisterForm';
+import './RegisterPage.scss';
+import RegisterForm from '../RegisterPage/RegisterForm';
 
-const HomePage = () => {
+const RegisterPage = () => {
   return (
     <Row>
       <Col md={{ span: 6, order: 'last' }}>
@@ -26,11 +26,11 @@ const HomePage = () => {
             </li>
           </ul>
         </div>
-        <LoginForm />
+        <RegisterForm />
       </Col>
       <HeroImage />
     </Row>
   );
 };
 
-export default HomePage;
+export default RegisterPage;
