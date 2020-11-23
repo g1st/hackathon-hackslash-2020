@@ -1,0 +1,13 @@
+@import "../../styles/variables.scss";
+@import "~bootstrap/scss/vendor/_rfs.scss";
+
+#className,
+h1 {
+	color: $cyf-grey;
+	text-align: center;
+}
+#cityImage {
+	height: 200px;
+	width: 400px;
+}
+
