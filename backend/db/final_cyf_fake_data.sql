@@ -1,9 +1,17 @@
+drop table if exists users;
 drop table if exists cohort;
 drop table if exists student;
 drop table if exists module;
 drop table if exists mentor;
 drop table if exists score;
 drop table if exists attendance;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name  VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  password  VARCHAR(200) NOT NULL
+);
 
 CREATE TABLE cohort (
 name              VARCHAR(50) PRIMARY KEY,
