@@ -2,10 +2,9 @@ const express = require ('express');
 const cors = require ('cors');
 const PORT = process.env.PORT || 3001;
 const app = express ();
-const {pool} = require ('./dbConfig ');
+const { pool } = require('./db/dbConfig');
 const bcrypt = require ('bcrypt');
-const session = require ('express-session');
-const flash = require ('express-flash');
+const session = require('express-session');
 const passport = require ('passport'); //plus passport-local
 require ('dotenv').config ();
 
@@ -13,39 +12,26 @@ const initializePassport = require ('./passportConfig');
 const initialize = require ('./passportConfig');
 initializePassport (passport);
 
-app.use (
-  session ({
-    secret: 'secret', // incrypt all the information in the session
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // incrypt all the information in the session
     resave: false, // should we resave our session variables if nothing is changed? wich is we dont want to do that
     saveUninitialized: false, // do we want to save our session details when there is no values placed in the session? which is we dont want to do that
   })
 );
 
-app.use (passport.initialize ());
-app.use (passport.session ());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-app.use (flash ()); // to display our flash messages
-
-app.use (express.json ());
-app.use (express.urlencoded ({extended: true}));
-app.use (cors ());
-
-const {Pool, Client} = require ('pg');
-
-// const pool = new Pool ({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'cyf_student_tracker',
-//   password: 'cyf',
-//   port: '5432',
-// });
-
-app.post (
+app.post(
   '/',
-  passport.authenticate ('local', {
+  passport.authenticate('local', {
     successRedirect: '/authenticated', // if the login successful
     failureRedirect: '/notAuthenticated',
-    failureFlash: true, // if we cant authinticate express to render one of the passed failure messages (password not correct or email not registered)
+    //failureFlash: true, // if we cant authinticate express to render one of the passed failure messages (password not correct or email not registered)
   })
 );
 
@@ -92,11 +78,10 @@ app.post ('/users/register', async (req, res) => {
         if (err) {
           throw err;
         }
-        console.log (resuls.rows);
 
         if (resuls.rows.length > 0) {
-          errors.push ({message: 'Email is already registered'});
-          res.render ('register', {errors});
+          errors.push({ message: 'Email is already registered' });
+          res.json({ error: { message: 'Email is already registered' } });
         } else {
           pool.query (
             `insert into users(name,email,password)
@@ -107,9 +92,7 @@ app.post ('/users/register', async (req, res) => {
               if (err) {
                 throw err;
               }
-              console.log (results.rows);
-              req.flash ('success_msg', 'you are now registered please log in');
-              res.redirect ('/users/login');
+              res.json('User registered successfully');
             }
           );
         }
