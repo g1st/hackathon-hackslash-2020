@@ -1,5 +1,5 @@
 const LocalStrategy = require ('passport-local').Strategy;
-const {pool} = require ('./dbConfig ');
+const { pool } = require('./db/dbConfig');
 const bcrypt = require ('bcrypt'); // to compare our user password to the hashed password stored into the database
 const {authenticate} = require ('passport');
 
