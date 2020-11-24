@@ -11,6 +11,13 @@
   margin-bottom: 0.75em;
 }
 
+.register-features {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .features-list {
   margin-bottom: 3em;
 

@@ -38,21 +38,22 @@ function useProvideAuth() {
       });
   };
 
-  const signup = (email, password) => {
-    // TODO POST to backend for sign up.
-    // return fetch('server_url.tld/api/auth/signup', {
-    //   method: 'post',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: { email, password },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setUser(data.user);
-    //     return data.user;
-    //   });
-
-    // until no backend set it straight away on SignIn button click
-    setUser({ name: 'Jane', token: '123' });
+  const signup = (name, email, password, password2, cb) => {
+    return fetch('http://localhost:3001/auth/register', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, password2, name }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const {
+          token,
+          user: { name },
+        } = data;
+        setToken(token);
+        setUser({ token, name });
+        cb();
+      });
   };
 
   const signout = (cb) => {

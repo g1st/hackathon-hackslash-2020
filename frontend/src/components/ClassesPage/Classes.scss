@@ -1,13 +1,17 @@
 @import "../../styles/variables.scss";
 @import "~bootstrap/scss/vendor/_rfs.scss";
 
-#className,
+.region,
 h1 {
 	color: $cyf-grey;
 	text-align: center;
 }
-#cityImage {
-	height: 200px;
-	width: 400px;
+
+.class-image {
+	max-width: 339px;
+	max-height: 200px;
 }
 
+.image-container {
+	margin-bottom: 7rem;
+}
