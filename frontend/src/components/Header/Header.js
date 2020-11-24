@@ -7,7 +7,16 @@ const Header = () => {
   let history = useHistory();
   let auth = useAuth();
   let location = useLocation();
-  let registerButton = location.pathname !== '/register'?<Link to="/register"><button className="registerBtn btn-dark">Register</button></Link>:null;
+  let registerButton =
+    location.pathname !== '/register' ? (
+      <Link to="/register">
+        <button className="registerBtn btn-dark">Register</button>
+      </Link>
+    ) : (
+      <Link to="/">
+        <button className="registerBtn btn-dark">Login</button>
+      </Link>
+    );
 
   return (
     <header>

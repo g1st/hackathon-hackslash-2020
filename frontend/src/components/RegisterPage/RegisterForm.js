@@ -14,26 +14,37 @@ const RegisterPage = () => {
     let auth = useAuth();
   
     const onSubmit = (data) => {
-      // later here will need to send POST request to the server
-      // auth.signup(data.name, data.email, data.password, data.confirmPassword, () => {
-      //   history.replace({ pathname: '/classes' });
-      // });
+      auth.signup(
+        data.name,
+        data.email,
+        data.password,
+        data.confirmPassword,
+        () => {
+          history.replace({ pathname: '/classes' });
+        }
+      );
       console.log(data);
     };
   
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group>
+        <Form.Group controlId="formName" className="login-form-group">
           <Form.Label>Name</Form.Label>
-          <Form.Control 
+          <Form.Control
             type="text"
             placeholder="Name"
-            name="Name"
+            name="name"
             ref={register({
-                required: {value: true, message: 'Name is required to register'},
-              })}
+              required: {
+                value: true,
+                message: 'Name is required to register',
+              },
+            })}
           />
-        </Form.Group>  
+          {errors.name && (
+            <Form.Text className="text-danger">{errors.name.message}</Form.Text>
+          )}
+        </Form.Group>
         <Form.Group controlId="formEmail" className="login-form-group">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -41,9 +52,18 @@ const RegisterPage = () => {
             placeholder="Email"
             name="email"
             ref={register({
-              required: { value: true, message: 'Email is required to register' },
+              required: { value: true, message: 'Email is required' },
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: 'Your email is not valid',
+              },
             })}
           />
+          {errors.email && (
+            <Form.Text className="text-danger">
+              {errors.email.message}
+            </Form.Text>
+          )}
         </Form.Group>
         <Form.Group controlId="formPassword" className="login-form-group">
           <Form.Label>Password</Form.Label>
@@ -84,7 +104,10 @@ const RegisterPage = () => {
                 value: 8,
                 message: 'Password must have at least 8 characters',
               },
-              validate: {confirmPassword: value => value === getValues().password || 'Password does not match'}
+              validate: {
+                confirmPassword: (value) =>
+                  value === getValues().password || 'Password does not match',
+              },
             })}
           />
           {errors.confirmPassword && (

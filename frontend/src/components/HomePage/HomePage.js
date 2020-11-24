@@ -3,14 +3,12 @@ import Col from 'react-bootstrap/Col';
 import LoginForm from '../LoginForm/LoginForm';
 import HeroImage from './HeroImage/HeroImage';
 import './HomePage.scss';
-import RegisterPage from '../RegisterPage/RegisterForm';
 
 const HomePage = () => {
   return (
     <Row>
-      <Col md={{ span: 6, order: 'last' }}>
+      <Col md={{ span: 6, order: 'last' }} className="features mb-5">
         <div>
-          <h1 className="app-title">Student tracker</h1>
           <ul className="features-list list-unstyled">
             <li>
               <div className="bullet"></div>

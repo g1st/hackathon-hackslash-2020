@@ -6,9 +6,12 @@
   height: auto;
 }
 
-.app-title {
-  @include font-size(4rem);
-  margin-bottom: 0.75em;
+.features {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .features-list {

@@ -1,16 +1,16 @@
-import Figure from 'react-bootstrap/Figure';
+import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
-import img from './hands.jpeg';
+import img from '../../../images/studenttracker.png';
 
 const HeroImage = () => {
   return (
     <Col className="pr-lg-5">
-      <Figure>
-        <Figure.Image rounded src={img} alt="Diverse hands" />
-        <Figure.Caption>
-          Together, we can help disadvantaged adults find meaningful work.
-        </Figure.Caption>
-      </Figure>
+      <Image
+        rounded
+        src={img}
+        alt="Student Tracker logo"
+        className="img-fluid"
+      />
     </Col>
   );
 };
