@@ -12,7 +12,6 @@ const LoginForm = () => {
   let auth = useAuth();
 
   const onSubmit = (data) => {
-    // later here will need to send POST request to the server
     auth.signin(data.email, data.password, () => {
       history.replace({ pathname: '/classes' });
     });

@@ -1,6 +1,7 @@
 // see https://usehooks.com/useAuth/
 // and https://reactrouter.com/web/example/auth-workflow
 import { useState, useEffect, useContext, createContext } from 'react';
+import useLocalstorage from './useLocalstorage';
 
 const authContext = createContext();
 
@@ -20,25 +21,21 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
-
+  const [, setToken] = useLocalstorage('token', '');
+  
   const signin = (email, password, cb) => {
-    // TODO POST to backend for signing in.
-    // return fetch('server_url.tld/api/auth/signin', {
-    //   method: 'post',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: { email, password },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setUser(data.user);
-    //     cb();
-    //     return data.user;
-    //   });
-
-    // until no backend set it straight away
-    setUser({ name: email });
-    localStorage.setItem('user', JSON.stringify({ name: email }));
-    cb();
+    return fetch('http://localhost:3001/auth/login', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const { token, user: { name } } = data;
+        setToken(token);
+        setUser({  token, name  });
+        cb();
+      });
   };
 
   const signup = (email, password) => {
@@ -58,10 +55,10 @@ function useProvideAuth() {
     setUser({ name: 'Jane', token: '123' });
   };
 
-  const signout = () => {
-    // TODO remove token from localstorage, set user to false
-    localStorage.removeItem('user');
+  const signout = (cb) => {
+    setToken('');
     setUser(false);
+    cb();
     return false;
   };
 
@@ -70,14 +67,25 @@ function useProvideAuth() {
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
   useEffect(() => {
-    // TODO check if user token in localStorage, if yes setUser to that and save token
-    // TODO otherwise = setUser(false)
-    const user = localStorage.getItem('user');
-    if (user) {
-      setUser(JSON.parse(user));
-    } else {
-      setUser(false);
-    }
+    const token = JSON.parse(localStorage.getItem('token'));
+
+    fetch('http://localhost:3001/auth/token', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.error) {
+          const {
+            token,
+            user: { name },
+          } = data;
+          setUser({ token, name });
+        }
+      });
   }, []);
 
   // Return the user object and auth methods

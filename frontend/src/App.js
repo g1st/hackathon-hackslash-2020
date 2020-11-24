@@ -6,8 +6,8 @@ import Footer from "./components/Footer/Footer";
 
 function App() {
 	return (
-		<ProvideAuth>
-			<Router>
+		<Router>
+			<ProvideAuth>
 				<Header />
 
 				<Container>
@@ -29,8 +29,8 @@ function App() {
 					</Switch>
 				</Container>
 				<Footer />
-			</Router>
-		</ProvideAuth>
+			</ProvideAuth>
+		</Router>
 	);
 }
 
