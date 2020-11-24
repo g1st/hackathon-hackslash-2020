@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import { Classes, Class, Header, PrivateRoute, Home, RegisterPage } from "./components";
+import { ProvideAuth } from "./hooks/use-auth";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<ProvideAuth>
+				<Header />
+
+				<Container>
+					<Switch>
+						<Route exact path="/">
+              <Home />
+              
+						</Route>
+            <Route exact path="/register">
+              <RegisterPage />
+              
+						</Route>
+						<PrivateRoute path="/classes">
+							<Classes />
+						</PrivateRoute>
+						<PrivateRoute path="/class/:className">
+							<Class />
+						</PrivateRoute>
+					</Switch>
+				</Container>
+				<Footer />
+			</ProvideAuth>
+		</Router>
+	);
 }
 
 export default App;

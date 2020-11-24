@@ -1,0 +1,19 @@
+$bgColor: #efefef;
+$footerFont: 100;
+$footerPadding: 1rem;
+
+.footer {
+	font-weight: $footerFont;
+	background-color: $bgColor;
+	text-align: center;
+	margin-top: auto;
+	padding: 1.5rem 0;
+}
+.footerCopyRight {
+	padding-bottom: $footerPadding;
+}
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
