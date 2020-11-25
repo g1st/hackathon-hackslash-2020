@@ -11,6 +11,49 @@ router.use (
   })
 );
 
+router.get ('/student-overview/:id/:week/:module1', async (req, res) => {
+  student_id = req.params.id;
+  week = req.params.week;
+  module1 = req.params.module1;
+  let student_data;
+  let week_attendance;
+  let student_attendance;
+  let all_classes;
+  let student_attendance_percentage;
+
+  let student_overview = {};
+
+  student_data = await pool.query ('select * from student where id = $1', [
+    student_id,
+  ]);
+  student_overview.student_data = student_data.rows[0];
+
+  week_attendance = await pool.query (
+    'select status from attendance where student_id = $1 and week = $2 and module1 = $3',
+    [student_id, week, module1]
+  );
+  student_overview.week_attendance = week_attendance.rows[0].status;
+
+  student_attendance = await pool.query (
+    "select count(status) from attendance where student_id = $1 and status !='no' ",
+    [student_id]
+  );
+  student_attendance = student_attendance.rows[0].count;
+
+  all_classes = await pool.query (
+    'select count(status) from attendance where student_id = $1',
+    [student_id]
+  );
+  all_classes = all_classes.rows[0].count;
+
+  student_attendance_percentage = student_attendance / all_classes * 100;
+  student_overview.student_attendance_percentage = student_attendance_percentage.toFixed (
+    1
+  );
+
+  res.json (student_overview);
+});
+
 router.get ('/class-overview/:cohort_name', async (req, res) => {
   let cohort_name = req.params.cohort_name;
   let students_names;
