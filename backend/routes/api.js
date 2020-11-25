@@ -11,8 +11,10 @@ router.use (
   })
 );
 
-router.get ('/class-overview', async (req, res) => {
-  console.log ('here');
+app.get ('/class-overview/:cohort_name', async (req, res) => {
+  let cohort_name = req.params.cohort_name;
+  console.log (cohort_name);
+
   let students_names;
 
   let attendees;
@@ -23,38 +25,55 @@ router.get ('/class-overview', async (req, res) => {
   let percentage;
   let score_avg;
 
-  const students = await pool.query ('select count(*) from student');
+  const students = await pool.query (
+    'select count(*) from student filter where cohort_name = $1',
+    [cohort_name]
+  );
   cohort_overview.students = students.rows[0].count;
 
-  students_names = await pool.query ('select name from student');
+  students_names = await pool.query (
+    'select name from student where cohort_name = $1',
+    [cohort_name]
+  );
   cohort_overview.students_names = students_names.rows;
 
   attendees = await pool.query (
-    "select count(status) from attendance as attendance where status = 'yes' or status = 'late'"
+    "select count(status) from attendance where status = 'yes' or status = 'late' and cohort_name =$1",
+    [cohort_name]
   );
   attendees = attendees.rows[0].count;
 
   all_weeks = await pool.query (
-    'select count(status) from attendance as attendance'
+    'select count(status) from attendance where cohort_name = $1',
+    [cohort_name]
   );
   percentage = attendees / all_weeks.rows[0].count * 100;
 
   cohort_overview.percentage = percentage.toFixed (1);
 
-  scores_sum = await pool.query ('select sum(score) from score');
+  scores_sum = await pool.query (
+    'select sum(score) from score where cohort_name = $1',
+    [cohort_name]
+  );
   scores_sum = scores_sum.rows[0].sum;
 
   scores_num = await pool.query (
-    'select count(score) from score as score where score >=0'
+    'select count(score) from score where score >=0 and cohort_name = $1',
+    [cohort_name]
   );
   scores_num = scores_num.rows[0].count;
   score_avg = scores_sum / scores_num;
   cohort_overview.score_avg = score_avg;
 
-  start_date = await pool.query ('select start_date from cohort');
+  start_date = await pool.query (
+    'select start_date from cohort where name = $1',
+    [cohort_name]
+  );
   cohort_overview.start_date = start_date.rows[0].start_date;
 
-  end_date = await pool.query ('select end_date from cohort');
+  end_date = await pool.query ('select end_date from cohort where name = $1', [
+    cohort_name,
+  ]);
   cohort_overview.end_date = end_date.rows[0].end_date;
   res.json (cohort_overview);
 });
