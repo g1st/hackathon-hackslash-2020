@@ -12,6 +12,7 @@ router.use (
 );
 
 router.get ('/class-overview', async (req, res) => {
+  console.log ('here');
   let students_names;
 
   let attendees;
