@@ -24,7 +24,6 @@ router.get ('/class-overview/:cohort_name', async (req, res) => {
   let score_avg;
 
   const students = await pool.query (
-
     'select count(*) from student where cohort_name = $1',
     [cohort_name]
   );
