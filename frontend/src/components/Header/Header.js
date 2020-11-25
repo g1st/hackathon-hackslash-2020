@@ -19,23 +19,23 @@ const Header = () => {
     );
 
   return (
-    <header>
+    <header className="header">
       <div>
         <Logo />
       </div>
       <div className="btnDiv">
         {auth.user ? (
-          <p>
-            Welcome {auth.user.name}!
+          <div className="text-right">
+            <p className="d-inline">Welcome {auth.user.name}!</p>
             <button
-              className="registerBtn btn-dark"
+              className="registerBtn btn-dark ml-3 ml-md-5"
               onClick={() => {
-                auth.signout(() => history.push("/"));
+                auth.signout(() => history.push('/'));
               }}
             >
               Sign out
             </button>
-          </p>
+          </div>
         ) : (
           registerButton
         )}
