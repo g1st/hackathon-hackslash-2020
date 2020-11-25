@@ -11,6 +11,7 @@ router.use (
   })
 );
 
+<<<<<<< Updated upstream
 app.get ('/class-overview/:cohort_name', async (req, res) => {
   let cohort_name = req.params.cohort_name;
   console.log (cohort_name);
@@ -26,7 +27,11 @@ app.get ('/class-overview/:cohort_name', async (req, res) => {
   let score_avg;
 
   const students = await pool.query (
+<<<<<<< Updated upstream
     'select count(*) from student filter where cohort_name = $1',
+=======
+    'select count(*) from student where cohort_name = $1',
+>>>>>>> Stashed changes
     [cohort_name]
   );
   cohort_overview.students = students.rows[0].count;
