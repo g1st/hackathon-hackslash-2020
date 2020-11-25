@@ -1,17 +1,45 @@
 @import "../../styles/variables.scss";
-@import "~bootstrap/scss/vendor/_rfs.scss";
 
-.region,
 h1 {
-	color: $cyf-grey;
 	text-align: center;
+}
+
+.region {
+	color: $cyf-grey;
+	margin-top: 1rem;
 }
 
 .class-image {
 	max-width: 339px;
+	width: 100%;
 	max-height: 200px;
+	object-fit: cover;
 }
 
 .image-container {
 	margin-bottom: 7rem;
+}
+
+.classes-filter {
+  display: block;
+
+  .classes-input {
+    max-width: 20rem;
+    width: 100%;
+    margin: 0 auto 4rem auto;
+  }
+}
+
+
+@media (min-width: 768px) {
+	.classes-filter {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    .classes-input {
+      margin: 0 0 4rem 0;
+    }
+
+  }
 }

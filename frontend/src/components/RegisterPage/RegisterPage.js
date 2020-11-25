@@ -1,6 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import HeroImage from './HeroImage/HeroImage';
+import HeroImage from '../HomePage/HeroImage/HeroImage';
 import './RegisterPage.scss';
 import RegisterForm from '../RegisterPage/RegisterForm';
 
