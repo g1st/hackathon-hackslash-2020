@@ -15,6 +15,10 @@ router.use (
 app.get ('/class-overview/:cohort_name', async (req, res) => {
   let cohort_name = req.params.cohort_name;
   console.log (cohort_name);
+=======
+router.get ('/class-overview/:cohort_name', async (req, res) => {
+  let cohort_name = req.params.cohort_name;
+>>>>>>> Stashed changes
 
   let students_names;
 
