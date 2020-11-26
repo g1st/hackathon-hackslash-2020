@@ -3,6 +3,7 @@
 
 .week-dropdown,
 .module-dropdown {
+  display: inline-block;
   button {
     width: 200px;
   }
@@ -12,10 +13,6 @@
   button {
     width: 200px;
   }
-}
-
-.dropdown-buttons-wrapper {
-  display: flex;
 }
 
 .overview-title {
@@ -72,15 +69,20 @@
   }
 }
 
+.class-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+  flex-direction: column;
+}
+
 // Small devices (landscape phones, 576px and up)
 // @media (min-width: 576px) { ... }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   .class-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5rem;
+    flex-direction: row;
   }
 
   .class-filter {
@@ -91,6 +93,10 @@
     .class-input {
       margin: 0;
     }
+  }
+
+  .dropdown-buttons-wrapper {
+    display: flex;
   }
 }
 
