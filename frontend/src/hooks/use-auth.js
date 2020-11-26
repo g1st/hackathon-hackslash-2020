@@ -22,6 +22,7 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const [, setToken] = useLocalstorage('token', '');
 
   const signin = (email, password, cb) => {
@@ -32,13 +33,17 @@ function useProvideAuth() {
     })
       .then((res) => res.json())
       .then((data) => {
-        const {
-          token,
-          user: { name },
-        } = data;
-        setToken(token);
-        setUser({ token, name });
-        cb();
+        if (data.error) {
+          setError({ error: data.error });
+        } else {
+          const {
+            token,
+            user: { name },
+          } = data;
+          setToken(token);
+          setUser({ token, name });
+          cb();
+        }
       });
   };
 
@@ -50,13 +55,17 @@ function useProvideAuth() {
     })
       .then((res) => res.json())
       .then((data) => {
-        const {
-          token,
-          user: { name },
-        } = data;
-        setToken(token);
-        setUser({ token, name });
-        cb();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          const {
+            token,
+            user: { name },
+          } = data;
+          setToken(token);
+          setUser({ token, name });
+          cb();
+        }
       });
   };
 
@@ -96,6 +105,7 @@ function useProvideAuth() {
   // Return the user object and auth methods
   return {
     user,
+    error,
     signin,
     signup,
     signout,

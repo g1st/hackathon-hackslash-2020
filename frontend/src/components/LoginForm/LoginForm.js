@@ -10,7 +10,6 @@ const LoginForm = () => {
 
   let history = useHistory();
   let auth = useAuth();
-
   const onSubmit = (data) => {
     auth.signin(data.email, data.password, () => {
       history.replace({ pathname: '/classes' });
@@ -57,6 +56,11 @@ const LoginForm = () => {
         {errors.password && (
           <Form.Text className="text-danger">
             {errors.password.message}
+          </Form.Text>
+        )}
+        {auth.error && (
+          <Form.Text className="text-danger">
+            {auth.error.error.message}
           </Form.Text>
         )}
       </Form.Group>
