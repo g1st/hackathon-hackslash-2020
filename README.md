@@ -17,7 +17,7 @@ Team Hack Slash
 
 3. Run `npm run repopulate-db:local` to populate db with fake data for local development.
 
-4. Run `npm run install:all` in the project root folder. If you wish to install and run only backend or frontend part of the app, then `cd` into that folder and run `npm install`. For example: `cd backend && npm install`.
+4. Run `npm repopulate-db:local` in the project root folder. If you wish to install and run only backend or frontend part of the app, then `cd` into that folder and run `npm install`. For example: `cd backend && npm install`.
 
 5. Then to run app (from root folder) in dev mode: `npm run dev`. If you prefer to run backend in one terminal and frontend in another, then execute `npm run dev:backend` in one and `npm run dev:frontend` in another.
 

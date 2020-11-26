@@ -72,11 +72,68 @@ router.get('/student-overview/:id/:week/:module1', async (req, res) => {
   res.json(student_overview);
 });
 
+
+router.get ('/class-week-overview/:class/:week/:module', async (req, res) => {
+  let class_name = req.params.class;
+  week = req.params.week;
+  module = req.params.module;
+  let week_data;
+  let week_attendance;
+  let all_classes;
+  let week_attendance_percentage;
+  let week_overview = {};
+  week_data = await pool.query (
+    'select count(*) from student where cohort_name = $1',
+    [class_name]
+  );
+  week_overview.week_data = week_data.rows[0].count;
+  week_attendance = await pool.query (
+    "select count(status) from attendance where cohort_name = $1 and week = $2 and module = $3 and status !='no' ",
+    [class_name, week, module]
+  );
+  week_attendance = week_attendance.rows[0].count;
+  all_classes = await pool.query (
+    'select count(status) from attendance where cohort_name = $1 and week = $2 and module = $3',
+    [class_name, week, module]
+  );
+  all_classes = all_classes.rows[0].count;
+  week_attendance_percentage = week_attendance / all_classes * 100;
+  week_overview.week_attendance_percentage = week_attendance_percentage.toFixed (
+    1
+  );
+  scores_sum = await pool.query (
+    'select sum(score) from score where cohort_name = $1 and week = $2 and module = $3',
+    [class_name, week, module]
+  );
+  scores_sum = scores_sum.rows[0].sum;
+  scores_num = await pool.query (
+    'select count(score) from score where score >=0 and cohort_name = $1 and week = $2 and module = $3 ',
+    [class_name, week, module]
+  );
+  scores_num = scores_num.rows[0].count;
+  score_avg = scores_sum / scores_num;
+  week_overview.score_avg = score_avg;
+  start_date = await pool.query (
+    'select start_date from cohort where name = $1',
+    [class_name]
+  );
+  week_overview.start_date = start_date.rows[0].start_date;
+  end_date = await pool.query ('select end_date from cohort where name = $1', [
+    class_name,
+  ]);
+  week_overview.end_date = end_date.rows[0].end_date;
+  res.json (week_overview);
+});
+
+
+
+
+
+
 router.get('/class-overview/:cohort_name', async (req, res) => {
   let cohort_name = req.params.cohort_name;
 
   let students_names;
-
   let attendees;
   let all_weeks;
   let scores_sum;
