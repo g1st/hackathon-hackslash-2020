@@ -16,6 +16,8 @@ import './Class.scss';
 const Class = () => {
   const [week, setWeek] = useState('Week');
   const [subject, setSubject] = useState('Module');
+  const [weekToFetch, setWeekToFetch] = useState(2);
+  const [subjectToFetch, setSubjectToFetch] = useState('React');
   const [showMarkAttendance, setShowMarkAttendance] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
   const { className } = useParams();
@@ -23,7 +25,6 @@ const Class = () => {
   const { loading: overviewLoading, data: overviewData } = useFetch(
     `${serverURL}/api/class-overview/westmidlands1`
   );
-
   const handleMarkAttendanceClose = () => setShowMarkAttendance(false);
   const handleAttendanceShow = () => setShowMarkAttendance(true);
 
@@ -32,10 +33,13 @@ const Class = () => {
 
   const handleModuleChange = (subject) => {
     setSubject(subject);
+    setSubjectToFetch(subject);
   };
 
   const handleWeekChange = (selectedWeek) => {
     setWeek(selectedWeek);
+    const weekNumber = selectedWeek.split(' ')[1];
+    setWeekToFetch(weekNumber);
   };
 
   const dateTimeFormat = new Intl.DateTimeFormat('en', {
@@ -149,8 +153,9 @@ const Class = () => {
             show={showAttendance}
             handleClose={handleShowAttendanceClose}
             students={overviewData.students_names}
-            subject={subject}
-            week={week}
+            subject={subjectToFetch}
+            week={weekToFetch}
+            cohort={className}
           />
         </>
       ) : null}
