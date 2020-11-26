@@ -3,9 +3,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import StudentAttendance from './StudentAttendance';
 
 const Students = ({ data }) => {
   const [students, setStudents] = useState(data);
+  const [showAttendance, setShowAttendance] = useState(false);
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -14,6 +16,10 @@ const Students = ({ data }) => {
     );
     setStudents(filteredStudents);
   };
+
+  const handleAttendanceClose = () => setShowAttendance(false);
+  const handleAttendanceShow = () => setShowAttendance(true);
+
   return (
     <Row>
       <>
@@ -29,7 +35,7 @@ const Students = ({ data }) => {
         {students.map((student, index) => (
           <Col key={index}>
             <div className="bubble-wrapper">
-              <button className="student-button">
+              <button className="student-button" onClick={handleAttendanceShow}>
                 <div className="student-bubble">
                   <div>
                     <div className="student-name">{student.name}</div>
@@ -40,6 +46,12 @@ const Students = ({ data }) => {
           </Col>
         ))}
       </>
+      {
+        <StudentAttendance
+          show={showAttendance}
+          handleClose={handleAttendanceClose}
+        />
+      }
     </Row>
   );
 };
