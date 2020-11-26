@@ -51,7 +51,6 @@
 
 .student-title {
   @include font-size(4rem);
-  margin-bottom: 5rem;
 }
 
 .student-name {
@@ -64,6 +63,15 @@
   background-color: transparent;
 }
 
+.class-filter {
+  display: block;
+  .class-input {
+    max-width: 20rem;
+    width: 100%;
+    margin: 0 auto 4rem auto;
+  }
+}
+
 // Small devices (landscape phones, 576px and up)
 // @media (min-width: 576px) { ... }
 
@@ -73,6 +81,16 @@
     display: flex;
     justify-content: center;
     margin-bottom: 5rem;
+  }
+
+  .class-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .class-input {
+      margin: 0;
+    }
   }
 }
 
