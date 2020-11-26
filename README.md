@@ -15,7 +15,7 @@ Team Hack Slash
 
 2. Populate `.env` file inside `/backend` directory with your credentials. Check `.env.example` for its contents.
 
-3. Run `npm repopulate-db:local` to populate db with fake data for local development.
+3. Run `npm run repopulate-db:local` to populate db with fake data for local development.
 
 4. Run `npm repopulate-db:local` in the project root folder. If you wish to install and run only backend or frontend part of the app, then `cd` into that folder and run `npm install`. For example: `cd backend && npm install`.
 

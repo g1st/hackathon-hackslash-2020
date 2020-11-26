@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { useAuth } from '../hooks/use-auth';
 import Spinner from './UI/Spinner';
 

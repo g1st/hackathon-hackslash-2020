@@ -21,13 +21,18 @@ router.post(
   '/login',
   passport.authenticate('local', {
     session: false,
+    failWithError: true,
   }),
-  (req, res) => {
+  (req, res, next) => {
     // if reached here - password valid
-    const { name } = req.user;
+    const { name, id } = req.user;
     // generate and send token to frontend
     const token = jwt.sign({ email: req.user.email }, 'jwt_secret');
-    res.json({ token: token, user: { name } });
+    res.json({ token: token, user: { name, id } });
+  },
+  (err, req, res, next) => {
+    // handle error
+    res.json({ error: err });
   }
 );
 

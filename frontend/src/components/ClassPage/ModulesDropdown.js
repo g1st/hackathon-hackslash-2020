@@ -2,9 +2,10 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import useFetch from '../../hooks/useFetch';
 import Spinner from '../UI/Spinner';
+import { serverURL } from '../../config';
 
-const ModulesDropdown = ({ module, setModule }) => {
-  const { data, error } = useFetch('http://localhost:3001/api/modules');
+const ModulesDropdown = ({ subject, setSubject }) => {
+  const { data, error } = useFetch(`${serverURL}/api/modules`);
 
   if (error) {
     return <div>Error</div>;
@@ -13,16 +14,17 @@ const ModulesDropdown = ({ module, setModule }) => {
       <DropdownButton
         id="dropdown-module-button"
         size="lg"
-        title={module}
+        title={subject}
         className="module-dropdown mr-5"
       >
-        <Dropdown.Item eventKey="All modules" onSelect={setModule}>
-          All modules
-        </Dropdown.Item>
-        {data.map((m, i) => {
+        {data.map((subject, i) => {
           return (
-            <Dropdown.Item key={i} eventKey={m.name} onSelect={setModule}>
-              {m.name}
+            <Dropdown.Item
+              key={i}
+              eventKey={subject.name}
+              onSelect={setSubject}
+            >
+              {subject.name}
             </Dropdown.Item>
           );
         })}

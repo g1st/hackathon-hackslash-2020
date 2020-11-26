@@ -2,6 +2,7 @@
 // and https://reactrouter.com/web/example/auth-workflow
 import { useState, useEffect, useContext, createContext } from 'react';
 import useLocalstorage from './useLocalstorage';
+import { serverURL } from '../config';
 
 const authContext = createContext();
 
@@ -21,38 +22,50 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const [, setToken] = useLocalstorage('token', '');
-  
+
   const signin = (email, password, cb) => {
-    return fetch('http://localhost:3001/auth/login', {
+    return fetch(`${serverURL}/auth/login`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
-        const { token, user: { name } } = data;
-        setToken(token);
-        setUser({  token, name  });
-        cb();
+        if (data.error) {
+          setError({ error: data.error });
+        } else {
+          const {
+            token,
+            user: { name },
+          } = data;
+          setToken(token);
+          setUser({ token, name });
+          cb();
+        }
       });
   };
 
   const signup = (name, email, password, password2, cb) => {
-    return fetch('http://localhost:3001/auth/register', {
+    return fetch(`${serverURL}/auth/register`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, password2, name }),
     })
       .then((res) => res.json())
       .then((data) => {
-        const {
-          token,
-          user: { name },
-        } = data;
-        setToken(token);
-        setUser({ token, name });
-        cb();
+        if (data.error) {
+          setError(data.error);
+        } else {
+          const {
+            token,
+            user: { name },
+          } = data;
+          setToken(token);
+          setUser({ token, name });
+          cb();
+        }
       });
   };
 
@@ -70,11 +83,11 @@ function useProvideAuth() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
 
-    fetch('http://localhost:3001/auth/token', {
+    fetch(`${serverURL}/auth/token`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
     })
       .then((res) => res.json())
@@ -92,6 +105,7 @@ function useProvideAuth() {
   // Return the user object and auth methods
   return {
     user,
+    error,
     signin,
     signup,
     signout,
