@@ -7,26 +7,31 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
 import useFetch from '../../hooks/useFetch';
 import ModulesDropdown from './ModulesDropdown';
-import Attendance from './Attendance';
+import MarkAttendance from './MarkAttendance';
+import ShowAttendance from './ShowAttendance';
 import img from '../../images/classroom.jpg';
 import Spinner from '../UI/Spinner';
 import './Class.scss';
 
 const Class = () => {
   const [week, setWeek] = useState('All weeks');
-  const [module, setModule] = useState('All modules');
-  const [show, setShow] = useState(false);
+  const [subject, setSubject] = useState('All modules');
+  const [showMarkAttendance, setShowMarkAttendance] = useState(false);
+  const [showAttendance, setShowAttendance] = useState(false);
   const { className } = useParams();
-
-  const handleAttendanceClose = () => setShow(false);
-  const handleAttendanceShow = () => setShow(true);
 
   const { loading: overviewLoading, data: overviewData } = useFetch(
     'http://localhost:3001/api/class-overview/westmidlands1'
   );
 
-  const handleModuleChange = (module) => {
-    setModule(module);
+  const handleMarkAttendanceClose = () => setShowMarkAttendance(false);
+  const handleAttendanceShow = () => setShowMarkAttendance(true);
+
+  const handleShowAttendanceClose = () => setShowAttendance(false);
+  const handleShowAttendanceShow = () => setShowAttendance(true);
+
+  const handleModuleChange = (subject) => {
+    setSubject(subject);
   };
 
   const handleWeekChange = (selectedWeek) => {
@@ -43,12 +48,12 @@ const Class = () => {
     <div>
       <h1 className="mb-5 text-left">{className}</h1>
       <div className="row class-wrapper">
-        <div className="col col-md-4">
+        <div className="col col-md-4 mb-5 mr-lg-5">
           {overviewLoading ? <Spinner /> : null}
           {overviewData ? (
             <>
-              <div className="overview-title">Class overview</div>
-              <ul className="list-group list-group-flush overview-list">
+              <div className="overview-title text-left">Class overview</div>
+              <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <strong>{overviewData.students}</strong> students
                 </li>
@@ -76,13 +81,16 @@ const Class = () => {
           ) : null}
         </div>
         <div className="col attendance-panel">
-          <div className="dropdown-buttons-wrapper mb-5">
-            <ModulesDropdown module={module} setModule={handleModuleChange} />
+          <div className="dropdown-buttons-wrapper mb-2">
+            <ModulesDropdown
+              subject={subject}
+              setSubject={handleModuleChange}
+            />
             <DropdownButton
               id="dropdown-week-button"
               size="lg"
               title={week}
-              className="week-dropdown mb-5"
+              className="week-dropdown mb-2"
             >
               <Dropdown.Item eventKey="All weeks" onSelect={handleWeekChange}>
                 All weeks
@@ -98,21 +106,26 @@ const Class = () => {
               </Dropdown.Item>
             </DropdownButton>
           </div>
-          <div className="attendance-buttons mb-5">
+          <div className="attendance-buttons mb-3">
             <Button
               type="submit"
               variant="primary"
-              className="btn-lg mr-md-5"
+              className="btn-lg mr-5"
               onClick={handleAttendanceShow}
             >
               Mark Attendance
             </Button>
-            <Button type="submit" variant="primary" className="btn-lg">
+            <Button
+              type="submit"
+              variant="primary"
+              className="btn-lg"
+              onClick={handleShowAttendanceShow}
+            >
               Show Attendance
             </Button>
           </div>
           <div>
-            <img src={img} alt="CYF class" />
+            <img src={img} alt="CYF class" className="img-fluid" />
           </div>
         </div>
       </div>
@@ -141,7 +154,26 @@ const Class = () => {
           </Row>
         </div>
       </div>
-      <Attendance show={show} handleClose={handleAttendanceClose} />
+      {overviewData ? (
+        <>
+          <MarkAttendance
+            show={showMarkAttendance}
+            handleClose={handleMarkAttendanceClose}
+            // handleSave={handleSaveAttendance}
+            students={overviewData.students_names}
+            subject={subject}
+            week={week}
+            cohort={className}
+          />
+          <ShowAttendance
+            show={showAttendance}
+            handleClose={handleShowAttendanceClose}
+            students={overviewData.students_names}
+            subject={subject}
+            week={week}
+          />
+        </>
+      ) : null}
     </div>
   );
 };
