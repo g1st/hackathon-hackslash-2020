@@ -8,9 +8,9 @@ const apiRoutes = require ('./routes/api');
 const authRoutes = require ('./routes/auth');
 const initializePassport = require ('./passportConfig');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5002;
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5002',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
 };

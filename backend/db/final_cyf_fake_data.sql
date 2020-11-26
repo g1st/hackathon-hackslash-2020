@@ -7,7 +7,7 @@ drop table if exists attendance;
 drop table if exists users;
 
 CREATE TABLE users (
-id SERIAL PRIMARY KEY
+id SERIAL PRIMARY KEY,
 name  VARCHAR(100) NOT NULL ,
 email VARCHAR(100)NOT NULL,
 password VARCHAR(200) NOT NULL
@@ -124,14 +124,13 @@ INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id,
 
 
 
-INSERT INTO users VALUES(1,'Hiba','hiba@yahoo.com',' $2b$10$dmm9x4XcBFPPqz5WqTGIUeu3DqzHEHRCU/MI01Ru0ihwuAvD99UGa')
-INSERT INTO users VALUES(1,'Mursel','mursel@yahoo.com',' $2b$10$hFFPVUlRVXgLwsJ0RU8Tueg/awvz.MPD270QeecW.qCtNvX/aWat2')
-INSERT INTO users VALUES(1,'Davinder','davinder@yahoo.com',' $2b$10$RAWB8u5qVkC2V2mD5Al1jOF9nQfMWIoY7Y1WRSZ53S.N7C0H/Fcpm')
-INSERT INTO users VALUES(1,'Gintaras','gintaras@yahoo.com',' $2b$10$TKUAzbf516ou/yWRqNZFXephWMvj0..uP/3vJUGg2NG3GSMED80xa')
-INSERT INTO users VALUES(1,'Hadiyah','hadiyah@yahoo.com',' $2b$10$6HBswsNlRkwOOfNOs0pBG.VxDKY8s4pjXbIsZhn2H01D6A7ReLEza')
-INSERT INTO users VALUES(1,'Deniz','deniz@yahoo.com','$2b$10$Wa1UB5iKK.PBFRzZkTL8QuohTHDdvVlzCGs4o5jRf5buhmfHjWrqi')
-INSERT INTO users VALUES(1,'Nouri','nouri@yahoo.com','$2b$10$JO0p0y0rozV/QotqSOpq.eKksVMc1xi9mmfWgceTzqDZEuobBTKE2')
-INSERT INTO users VALUES(1,'Amanul','amanul@yahoo.com','$2b$10$zQqvR4YjGYfI75Q55Qx41eoDjQjmHoshgx9s59NDMsTA5SqLsVX36')
+INSERT INTO users VALUES(1,'Hiba','hiba@yahoo.com',' $2b$10$dmm9x4XcBFPPqz5WqTGIUeu3DqzHEHRCU/MI01Ru0ihwuAvD99UGa');
+INSERT INTO users VALUES(2,'Mursel','mursel@yahoo.com',' $2b$10$hFFPVUlRVXgLwsJ0RU8Tueg/awvz.MPD270QeecW.qCtNvX/aWat2');
+INSERT INTO users VALUES(3,'Davinder','davinder@yahoo.com',' $2b$10$RAWB8u5qVkC2V2mD5Al1jOF9nQfMWIoY7Y1WRSZ53S.N7C0H/Fcpm');
+INSERT INTO users VALUES(4,'Gintaras','gintaras@yahoo.com',' $2b$10$TKUAzbf516ou/yWRqNZFXephWMvj0..uP/3vJUGg2NG3GSMED80xa');
+INSERT INTO users VALUES(5,'Deniz','deniz@yahoo.com','$2b$10$Wa1UB5iKK.PBFRzZkTL8QuohTHDdvVlzCGs4o5jRf5buhmfHjWrqi');
+INSERT INTO users VALUES(6,'Nouri','nouri@yahoo.com','$2b$10$JO0p0y0rozV/QotqSOpq.eKksVMc1xi9mmfWgceTzqDZEuobBTKE2');
+INSERT INTO users VALUES(7,'Amanul','amanul@yahoo.com','$2b$10$zQqvR4YjGYfI75Q55Qx41eoDjQjmHoshgx9s59NDMsTA5SqLsVX36');
 
 
 
