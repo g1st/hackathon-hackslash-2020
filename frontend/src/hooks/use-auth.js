@@ -38,10 +38,10 @@ function useProvideAuth() {
         } else {
           const {
             token,
-            user: { name },
+            user: { name, id },
           } = data;
           setToken(token);
-          setUser({ token, name });
+          setUser({ token, name, id });
           cb();
         }
       });
