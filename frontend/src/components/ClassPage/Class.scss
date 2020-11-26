@@ -3,6 +3,7 @@
 
 .week-dropdown,
 .module-dropdown {
+  display: inline-block;
   button {
     width: 200px;
   }
@@ -12,10 +13,6 @@
   button {
     width: 200px;
   }
-}
-
-.dropdown-buttons-wrapper {
-  display: flex;
 }
 
 .overview-title {
@@ -51,7 +48,6 @@
 
 .student-title {
   @include font-size(4rem);
-  margin-bottom: 5rem;
 }
 
 .student-name {
@@ -64,15 +60,43 @@
   background-color: transparent;
 }
 
+.class-filter {
+  display: block;
+  .class-input {
+    max-width: 20rem;
+    width: 100%;
+    margin: 0 auto 4rem auto;
+  }
+}
+
+.class-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+  flex-direction: column;
+}
+
 // Small devices (landscape phones, 576px and up)
 // @media (min-width: 576px) { ... }
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   .class-wrapper {
+    flex-direction: row;
+  }
+
+  .class-filter {
     display: flex;
-    justify-content: center;
-    margin-bottom: 5rem;
+    justify-content: space-between;
+    align-items: center;
+
+    .class-input {
+      margin: 0;
+    }
+  }
+
+  .dropdown-buttons-wrapper {
+    display: flex;
   }
 }
 

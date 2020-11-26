@@ -1,4 +1,4 @@
-const StudentsList = ({ students, handleChange }) => {
+const RadioButtons = ({ students, handleChange }) => {
   return (
     <div>
       <div className="mb-3">
@@ -68,4 +68,4 @@ const StudentsList = ({ students, handleChange }) => {
   );
 };
 
-export default StudentsList;
+export default RadioButtons;

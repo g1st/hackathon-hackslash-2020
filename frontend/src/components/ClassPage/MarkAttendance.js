@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import StudentsList from './StudentsList';
+import RadioButtons from './RadioButtons';
 
 const MarkAttendance = ({
   show,
@@ -42,7 +42,7 @@ const MarkAttendance = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <StudentsList students={studentsData} handleChange={handleChange} />
+          <RadioButtons students={studentsData} handleChange={handleChange} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

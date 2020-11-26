@@ -1,7 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
@@ -9,19 +7,21 @@ import useFetch from '../../hooks/useFetch';
 import ModulesDropdown from './ModulesDropdown';
 import MarkAttendance from './MarkAttendance';
 import ShowAttendance from './ShowAttendance';
+import Students from './Students';
 import img from '../../images/classroom.jpg';
 import Spinner from '../UI/Spinner';
+import { serverURL } from '../../config';
 import './Class.scss';
 
 const Class = () => {
-  const [week, setWeek] = useState('All weeks');
-  const [subject, setSubject] = useState('All modules');
+  const [week, setWeek] = useState('Week');
+  const [subject, setSubject] = useState('Module');
   const [showMarkAttendance, setShowMarkAttendance] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
   const { className } = useParams();
 
   const { loading: overviewLoading, data: overviewData } = useFetch(
-    'http://localhost:3001/api/class-overview/westmidlands1'
+    `${serverURL}/api/class-overview/westmidlands1`
   );
 
   const handleMarkAttendanceClose = () => setShowMarkAttendance(false);
@@ -92,9 +92,6 @@ const Class = () => {
               title={week}
               className="week-dropdown mb-2"
             >
-              <Dropdown.Item eventKey="All weeks" onSelect={handleWeekChange}>
-                All weeks
-              </Dropdown.Item>
               <Dropdown.Item eventKey="Week 1" onSelect={handleWeekChange}>
                 Week 1
               </Dropdown.Item>
@@ -130,28 +127,11 @@ const Class = () => {
         </div>
       </div>
       <div className="pt-5 pb-5">
-        <h2 className="student-title">Students</h2>
         <div className="students-list">
-          <Row>
-            {overviewLoading ? <Spinner /> : null}
-            {overviewData ? (
-              <>
-                {overviewData.students_names.map((student, index) => (
-                  <Col key={index}>
-                    <div className="bubble-wrapper">
-                      <button className="student-button">
-                        <div className="student-bubble">
-                          <div>
-                            <div className="student-name">{student.name}</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  </Col>
-                ))}
-              </>
-            ) : null}
-          </Row>
+          {overviewLoading ? <Spinner /> : null}
+          {overviewData ? (
+            <Students data={overviewData.students_names} />
+          ) : null}
         </div>
       </div>
       {overviewData ? (
