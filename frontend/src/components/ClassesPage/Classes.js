@@ -10,9 +10,10 @@ import wm2 from '../../images/classes/wm2.jpg';
 import london from '../../images/classes/london.jpg';
 import glasgow from '../../images/classes/glasgow.jpg';
 import fallbackImage from '../../images/shot.png';
+import { serverURL } from '../../config';
 
 const Classes = () => {
-  let { status, data, error } = useFetch('http://localhost:3001/api/classes');
+  let { status, data, error } = useFetch(`${serverURL}/api/classes`);
 
   if (status === 'error') {
     return <div>Error: {error.message}</div>;

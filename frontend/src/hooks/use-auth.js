@@ -2,6 +2,7 @@
 // and https://reactrouter.com/web/example/auth-workflow
 import { useState, useEffect, useContext, createContext } from 'react';
 import useLocalstorage from './useLocalstorage';
+import { serverURL } from '../config';
 
 const authContext = createContext();
 
@@ -22,24 +23,27 @@ export const useAuth = () => {
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [, setToken] = useLocalstorage('token', '');
-  
+
   const signin = (email, password, cb) => {
-    return fetch('http://localhost:3001/auth/login', {
+    return fetch(`${serverURL}/auth/login`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then((data) => {
-        const { token, user: { name } } = data;
+        const {
+          token,
+          user: { name },
+        } = data;
         setToken(token);
-        setUser({  token, name  });
+        setUser({ token, name });
         cb();
       });
   };
 
   const signup = (name, email, password, password2, cb) => {
-    return fetch('http://localhost:3001/auth/register', {
+    return fetch(`${serverURL}/auth/register`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password, password2, name }),
@@ -70,11 +74,11 @@ function useProvideAuth() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
 
-    fetch('http://localhost:3001/auth/token', {
+    fetch(`${serverURL}/auth/token`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
       },
     })
       .then((res) => res.json())

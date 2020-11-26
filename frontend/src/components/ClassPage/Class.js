@@ -11,6 +11,7 @@ import MarkAttendance from './MarkAttendance';
 import ShowAttendance from './ShowAttendance';
 import img from '../../images/classroom.jpg';
 import Spinner from '../UI/Spinner';
+import { serverURL } from '../../config';
 import './Class.scss';
 
 const Class = () => {
@@ -21,7 +22,7 @@ const Class = () => {
   const { className } = useParams();
 
   const { loading: overviewLoading, data: overviewData } = useFetch(
-    'http://localhost:3001/api/class-overview/westmidlands1'
+    `${serverURL}/api/class-overview/westmidlands1`
   );
 
   const handleMarkAttendanceClose = () => setShowMarkAttendance(false);
