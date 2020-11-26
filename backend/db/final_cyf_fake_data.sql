@@ -110,18 +110,17 @@ INSERT INTO mentor (name, email, password, subject, cohort_name, module) VALUES 
 
 INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (7,'Student did really well this week', 'westmidlands1', 1, 'html-css', 1, '2020-01-01', 1);
 INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (2,'Student has low performance', 'westmidlands1', 2, 'React', 2, '2020-01-08', 2);
-INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (9,'Student has missed some code', 'westmidlands1', 3, 'NodeJS', 3, '2020-01-15', 3);
+INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (9,'Student has missed some code', 'westmidlands1', 3, 'Node', 3, '2020-01-15', 3);
 INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (5,'Student did amazing this week', 'westmidlands1', 4, 'MongoDB', 1, '2020-02-01', 4);
-INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (8,'Student did very well', 'westmidlands1', 5, 'Sql', 2, '2020-02-08', 5);
+INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (8,'Student did very well', 'westmidlands1', 5, 'SQL', 2, '2020-02-08', 5);
 INSERT INTO score (score,comment, cohort_name, student_id, module, week, date, mentor_id) VALUES (9,'Student needs improves', 'westmidlands1', 6, 'JavaScript core 1', 3, '2020-02-15', 6);
 
 INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('yes',1,'westmidlands1',1,'html-css',1,'2020-01-01');
 INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('no',2,'westmidlands1',2,'React',2,'2020-01-08');
 INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('late',3,'westmidlands1',3,'React',3,'2020-01-15');
 INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('yes',4,'westmidlands1',1,'MongoDB',3,'2020-02-01');
-INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('no',5,'westmidlands1',2,'Sql',4,'2020-02-08');
+INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('no',5,'westmidlands1',2,'SQL',4,'2020-02-08');
 INSERT INTO attendance (status, student_id,cohort_name ,week, module, mentor_id, date) VALUES ('yes',6,'westmidlands1',3,'JavaScript core 1',5,'2020-02-15');
-
 
 
 INSERT INTO users VALUES(1,'Hiba','hiba@yahoo.com',' $2b$10$dmm9x4XcBFPPqz5WqTGIUeu3DqzHEHRCU/MI01Ru0ihwuAvD99UGa');
