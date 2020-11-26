@@ -20,9 +20,11 @@ const Class = () => {
   const [subjectToFetch, setSubjectToFetch] = useState('React');
   const [showMarkAttendance, setShowMarkAttendance] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
+  const [refetch, setRefetch] = useState(false);
   const { className } = useParams();
 
   const { loading: overviewLoading, data: overviewData } = useFetch(
+    // no fake data for other classes
     `${serverURL}/api/class-overview/westmidlands1`
   );
   const handleMarkAttendanceClose = () => setShowMarkAttendance(false);
@@ -40,6 +42,10 @@ const Class = () => {
     setWeek(selectedWeek);
     const weekNumber = selectedWeek.split(' ')[1];
     setWeekToFetch(weekNumber);
+  };
+
+  const triggerFetch = () => {
+    setRefetch(!refetch);
   };
 
   const dateTimeFormat = new Intl.DateTimeFormat('en', {
@@ -147,7 +153,10 @@ const Class = () => {
             students={overviewData.students_names}
             subject={subject}
             week={week}
+            subjectToFetch={subjectToFetch}
+            weekToFetch={weekToFetch}
             cohort={className}
+            triggerFetch={triggerFetch}
           />
           <ShowAttendance
             show={showAttendance}
@@ -156,6 +165,7 @@ const Class = () => {
             subject={subjectToFetch}
             week={weekToFetch}
             cohort={className}
+            refetch={refetch}
           />
         </>
       ) : null}

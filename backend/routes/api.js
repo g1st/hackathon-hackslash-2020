@@ -205,13 +205,14 @@ router.get('/class-overview/:cohort_name', async (req, res) => {
 
 router.post('/attendance', (req, res) => {
   let data = req.body;
+  // it's adding doubles to db
   data.forEach((obj) => {
     pool.query(
       `insert into attendance(status,student_id,cohort_name,week ,module,mentor_id,date)
             values($1,$2,$3,$4,$5,$6,$7)`,
       [
-        obj.status,
-        obj.student_id,
+        obj.attendance.toLowerCase(),
+        obj.id,
         obj.cohort_name,
         obj.week,
         obj.module,
@@ -222,10 +223,10 @@ router.post('/attendance', (req, res) => {
         if (err) {
           throw err;
         }
-        res.json({ status: 'successful' });
       }
     );
   });
+  return res.json({ status: 'successful' });
 });
 
 router.get('/modules', function (req, res) {

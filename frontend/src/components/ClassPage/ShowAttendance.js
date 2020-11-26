@@ -11,9 +11,11 @@ const ShowAttendance = ({
   subject,
   week,
   cohort,
+  refetch,
 }) => {
   const { loading, data, error } = useFetch(
-    `${serverURL}/api/class-week-overview/${cohort}/${week}/${subject}`
+    `${serverURL}/api/class-week-overview/${cohort}/${week}/${subject}`,
+    refetch
   );
 
   if (error) {

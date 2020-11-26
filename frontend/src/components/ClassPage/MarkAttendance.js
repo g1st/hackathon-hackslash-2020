@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import RadioButtons from './RadioButtons';
+import { serverURL } from '../../config';
+import { useAuth } from '../../hooks/use-auth';
 
 const MarkAttendance = ({
   show,
@@ -9,20 +11,42 @@ const MarkAttendance = ({
   students,
   subject,
   week,
+  subjectToFetch,
+  weekToFetch,
   cohort,
+  triggerFetch,
 }) => {
-  // add YES as default attendance for each student
+  let {
+    user: { token, id },
+  } = useAuth();
+  // add YES as default attendance for each student (if not already marked)
+  // don't have that data yet from BE
   const data = students.map((s) => ({ ...s, attendance: 'YES' }));
   const [studentsData, setStudentsData] = useState(data);
 
   const handleSave = () => {
-    console.log('data for POST attendance');
-    console.log(subject, week, cohort, studentsData);
-    // TODO POST request to backend to save attendance
-    // TODO refetch attendances?
+    const formattedData = studentsData.map((obj) => {
+      obj.cohort_name = cohort;
+      obj.week = weekToFetch;
+      obj.module = subjectToFetch;
+      obj.mentor_id = id;
+      obj.date = new Date().toISOString().split('T')[0];
+      return obj;
+    });
 
-    // TODO close modal only after sending POST request
-    // handleClose();
+    fetch(`${serverURL}/api/attendance`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(formattedData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        triggerFetch();
+        handleClose();
+      });
   };
 
   const handleChange = (name, value) => {
