@@ -24,10 +24,10 @@ router.post(
   }),
   (req, res) => {
     // if reached here - password valid
-    const { name } = req.user;
+    const { name, id } = req.user;
     // generate and send token to frontend
     const token = jwt.sign({ email: req.user.email }, 'jwt_secret');
-    res.json({ token: token, user: { name } });
+    res.json({ token: token, user: { name, id } });
   }
 );
 
