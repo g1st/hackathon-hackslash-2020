@@ -15,8 +15,8 @@ import { serverURL } from '../../config';
 import './Class.scss';
 
 const Class = () => {
-  const [week, setWeek] = useState('All weeks');
-  const [subject, setSubject] = useState('All modules');
+  const [week, setWeek] = useState('Week');
+  const [subject, setSubject] = useState('Module');
   const [showMarkAttendance, setShowMarkAttendance] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
   const { className } = useParams();
@@ -93,9 +93,6 @@ const Class = () => {
               title={week}
               className="week-dropdown mb-2"
             >
-              <Dropdown.Item eventKey="All weeks" onSelect={handleWeekChange}>
-                All weeks
-              </Dropdown.Item>
               <Dropdown.Item eventKey="Week 1" onSelect={handleWeekChange}>
                 Week 1
               </Dropdown.Item>

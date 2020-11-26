@@ -17,9 +17,6 @@ const ModulesDropdown = ({ subject, setSubject }) => {
         title={subject}
         className="module-dropdown mr-5"
       >
-        <Dropdown.Item eventKey="All modules" onSelect={setSubject}>
-          All modules
-        </Dropdown.Item>
         {data.map((subject, i) => {
           return (
             <Dropdown.Item
