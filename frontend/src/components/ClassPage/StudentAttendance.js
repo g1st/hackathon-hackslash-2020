@@ -4,10 +4,17 @@ import useFetch from '../../hooks/useFetch';
 import Spinner from '../UI/Spinner';
 import { serverURL } from '../../config';
 
-const StudentAttendance = ({ show, handleClose, students, subject, week }) => {
-  // TODO to change it to selected student id
-  const { data, error } = useFetch(`${serverURL}/api/student/attendance/1`);
-
+const StudentAttendance = ({
+  show,
+  handleClose,
+  students,
+  subject,
+  week,
+  id,
+}) => {
+  const { loading, data, error } = useFetch(
+    `${serverURL}/api/student/attendance/${id}`
+  );
   if (error) {
     return <div>Error</div>;
   } else if (data) {
@@ -15,7 +22,7 @@ const StudentAttendance = ({ show, handleClose, students, subject, week }) => {
       <div>
         <Modal show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Past attendance for {data[0].name}</Modal.Title>
+            <Modal.Title>Past attendance for {data[0]?.name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="mb-3">
@@ -95,8 +102,10 @@ const StudentAttendance = ({ show, handleClose, students, subject, week }) => {
         </Modal>
       </div>
     );
-  } else {
+  } else if (loading) {
     return <Spinner />;
+  } else {
+    return null;
   }
 };
 

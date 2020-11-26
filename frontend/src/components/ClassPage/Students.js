@@ -6,6 +6,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import StudentAttendance from './StudentAttendance';
 
 const Students = ({ data }) => {
+  const [studentId, setStudentId] = useState(0);
   const [students, setStudents] = useState(data);
   const [showAttendance, setShowAttendance] = useState(false);
 
@@ -18,7 +19,10 @@ const Students = ({ data }) => {
   };
 
   const handleAttendanceClose = () => setShowAttendance(false);
-  const handleAttendanceShow = () => setShowAttendance(true);
+  const handleAttendanceShow = (studentId) => {
+    setStudentId(studentId);
+    setShowAttendance(true);
+  };
 
   return (
     <Row>
@@ -31,11 +35,19 @@ const Students = ({ data }) => {
             onChange={handleSearch}
             className="class-input d-flex align-self-center"
           />
+          <StudentAttendance
+            show={showAttendance}
+            handleClose={handleAttendanceClose}
+            id={studentId}
+          />
         </InputGroup>
         {students.map((student, index) => (
           <Col key={index}>
             <div className="bubble-wrapper">
-              <button className="student-button" onClick={handleAttendanceShow}>
+              <button
+                className="student-button"
+                onClick={() => handleAttendanceShow(student.id)}
+              >
                 <div className="student-bubble">
                   <div>
                     <div className="student-name">{student.name}</div>
@@ -46,12 +58,6 @@ const Students = ({ data }) => {
           </Col>
         ))}
       </>
-      {
-        <StudentAttendance
-          show={showAttendance}
-          handleClose={handleAttendanceClose}
-        />
-      }
     </Row>
   );
 };

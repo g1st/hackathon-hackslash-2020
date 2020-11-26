@@ -13,14 +13,20 @@ router.use(
 
 router.get('/student/attendance/:id', async (req, res) => {
   const { id } = req.params;
-  const data = await pool.query(`
-    SELECT s.id, s.name, a.status, a.week, a.module FROM student s 
+  if (id) {
+    const { rows } = await pool.query(
+      `
+      SELECT s.id, s.name, a.status, a.week, a.module FROM student s 
     INNER JOIN attendance a ON a.student_id = s.id 
-    WHERE s.id = 1
-  `);
+    WHERE s.id = $1
+    `,
+      [id]
+    );
 
-  const attendance = data.rows;
-  res.json(attendance);
+    res.json(rows);
+  } else {
+    res.json([]);
+  }
 });
 
 router.get('/student-overview/:id/:week/:module1', async (req, res) => {
@@ -143,7 +149,7 @@ router.get('/class-overview/:cohort_name', async (req, res) => {
   cohort_overview.students = students.rows[0].count;
 
   students_names = await pool.query(
-    'select name from student where cohort_name = $1',
+    'select name, id from student where cohort_name = $1',
     [cohort_name]
   );
   cohort_overview.students_names = students_names.rows;
