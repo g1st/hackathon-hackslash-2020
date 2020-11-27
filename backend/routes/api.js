@@ -92,7 +92,7 @@ router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
   );
   week_attendance = week_attendance.rows[0].count;
   all_classes = await pool.query(
-    'select count(status) from attendance where cohort_name = $1 and week = $2 and mdl = $3',
+    'select count(status) from attendance where cohort_name = $1 and week = $2 and module = $3',
     [class_name, week, mdl]
   );
   all_classes = all_classes.rows[0].count;
