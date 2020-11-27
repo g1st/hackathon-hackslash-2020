@@ -218,9 +218,10 @@ router.post('/attendance', (req, res) => {
               [obj.id, obj.week, obj.module, obj.cohort_name]
             )
             .then((result) => {
-              return result.rows[0];
+              return parseInt(result.rows[0].count);
             })
             .then((count) => {
+              console.log('count :>> ', count);
               if (count > 0) {
                 // attendance entry for this student, module and week already exist - just modify it
                 return client.query(
@@ -264,6 +265,7 @@ router.post('/attendance', (req, res) => {
     })
   )
     .then((result) => {
+      console.log('result :>> ', result);
       res.json({ status: 'successful' });
     })
     .catch((err) => {
