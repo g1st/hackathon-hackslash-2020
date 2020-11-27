@@ -75,7 +75,7 @@ router.get('/student-overview/:id/:week/:module1', async (req, res) => {
 router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
   let class_name = req.params.class;
   week = req.params.week;
-  module = req.params.module;
+  let mdl = req.params.module;
   let week_data;
   let week_attendance;
   let all_classes;
@@ -88,12 +88,12 @@ router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
   week_overview.week_data = week_data.rows[0].count;
   week_attendance = await pool.query(
     "select count(status) from attendance where cohort_name = $1 and week = $2 and module = $3 and status !='no' ",
-    [class_name, week, module]
+    [class_name, week, mdl]
   );
   week_attendance = week_attendance.rows[0].count;
   all_classes = await pool.query(
-    'select count(status) from attendance where cohort_name = $1 and week = $2 and module = $3',
-    [class_name, week, module]
+    'select count(status) from attendance where cohort_name = $1 and week = $2 and mdl = $3',
+    [class_name, week, mdl]
   );
   all_classes = all_classes.rows[0].count;
   week_attendance_percentage = (week_attendance / all_classes) * 100;
@@ -102,12 +102,12 @@ router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
   );
   scores_sum = await pool.query(
     'select sum(score) from score where cohort_name = $1 and week = $2 and module = $3',
-    [class_name, week, module]
+    [class_name, week, mdl]
   );
   scores_sum = scores_sum.rows[0].sum;
   scores_num = await pool.query(
-    'select count(score) from score where score >=0 and cohort_name = $1 and week = $2 and module = $3 ',
-    [class_name, week, module]
+    'select count(score) from score where score >=0 and cohort_name = $1 and week = $2 and mdl = $3 ',
+    [class_name, week, mdl]
   );
   scores_num = scores_num.rows[0].count;
   score_avg = scores_sum / scores_num;
@@ -131,7 +131,7 @@ router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
     AND a.module = $3
 ;
   `,
-    [class_name, week, module]
+    [class_name, week, mdl]
   );
   week_overview.students = students.rows;
 
