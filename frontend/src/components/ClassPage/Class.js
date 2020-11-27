@@ -149,7 +149,6 @@ const Class = () => {
           <MarkAttendance
             show={showMarkAttendance}
             handleClose={handleMarkAttendanceClose}
-            // handleSave={handleSaveAttendance}
             students={overviewData.students_names}
             subject={subject}
             week={week}
