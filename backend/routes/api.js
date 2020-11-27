@@ -265,8 +265,6 @@ router.post('/attendance', (req, res) => {
     })
   )
     .then((result) => {
-      console.log('result :>> ', result);
-
       res.json({ status: 'successful' });
     })
     .catch((err) => {
