@@ -106,7 +106,7 @@ router.get('/class-week-overview/:class/:week/:module', async (req, res) => {
   );
   scores_sum = scores_sum.rows[0].sum;
   scores_num = await pool.query(
-    'select count(score) from score where score >=0 and cohort_name = $1 and week = $2 and mdl = $3 ',
+    'select count(score) from score where score >=0 and cohort_name = $1 and week = $2 and module = $3 ',
     [class_name, week, mdl]
   );
   scores_num = scores_num.rows[0].count;
