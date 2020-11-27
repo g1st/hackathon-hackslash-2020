@@ -26,7 +26,7 @@ const ShowAttendance = ({
         <Modal show={show} onHide={handleClose} size="xl">
           <Modal.Header closeButton>
             <Modal.Title>
-              Attendance | {subject} | {week}
+              Attendance | {subject} | Week {week}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
