@@ -15,15 +15,12 @@ const production = process.env.NODE_ENV === 'production';
 
 const PORT = production ? process.env.PORT : 3001;
 const corsOptions = {
-  origin: "https://cyf-student-tracker.netlify.app"
-  
-  //optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  // credentials: true
+  origin: production ? process.env.FRONTEND_URL : 'http://localhost:3000',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
 };
 
 initializePassport(passport);
-
-app.options('*', cors())
 
 app.use(cors(corsOptions));
 
