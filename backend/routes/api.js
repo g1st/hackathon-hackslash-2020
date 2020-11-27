@@ -205,23 +205,55 @@ router.get('/class-overview/:cohort_name', async (req, res) => {
 
 router.post('/attendance', (req, res) => {
   let data = req.body;
-  // it's adding doubles to db
   data.forEach((obj) => {
+    // check if student id, week, module, cohort_name is already in attendance.
     pool.query(
-      `insert into attendance(status,student_id,cohort_name,week ,module,mentor_id,date)
-            values($1,$2,$3,$4,$5,$6,$7)`,
-      [
-        obj.attendance.toLowerCase(),
-        obj.id,
-        obj.cohort_name,
-        obj.week,
-        obj.module,
-        obj.mentor_id,
-        obj.date,
-      ],
+      `SELECT count(id) FROM attendance WHERE student_id = $1 AND week = $2 AND module = $3 AND cohort_name = $4
+      `,
+      [obj.id, obj.week, obj.module, obj.cohort_name],
       (err, results) => {
         if (err) {
           throw err;
+        }
+        const { count } = results.rows[0];
+        if (count > 0) {
+          // attendance entry for this student, module and week already exist - just modify it
+          pool.query(
+            `UPDATE attendance SET status = $5 WHERE student_id = $1 AND week = $2 AND module = $3 AND cohort_name = $4
+      `,
+            [
+              obj.id,
+              obj.week,
+              obj.module,
+              obj.cohort_name,
+              obj.attendance.toLowerCase(),
+            ],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+            }
+          );
+        } else {
+          // insert new attendance
+          pool.query(
+            `insert into attendance(status,student_id,cohort_name,week ,module,mentor_id,date)
+            values($1,$2,$3,$4,$5,$6,$7)`,
+            [
+              obj.attendance.toLowerCase(),
+              obj.id,
+              obj.cohort_name,
+              obj.week,
+              obj.module,
+              obj.mentor_id,
+              obj.date,
+            ],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+            }
+          );
         }
       }
     );
