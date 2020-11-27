@@ -5,10 +5,14 @@ const passport = require('passport'); //plus passport-local
 require('dotenv').config();
 
 const apiRoutes = require('./routes/api');
+
 const authRoutes = require('./routes/auth');
+
 const initializePassport = require('./passportConfig');
 
+
 const production = process.env.NODE_ENV === 'production';
+
 const PORT = production ? process.env.PORT : 3001;
 const corsOptions = {
   origin: production ? process.env.FRONTEND_URL : 'http://localhost:3000',
