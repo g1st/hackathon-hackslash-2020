@@ -206,9 +206,9 @@ router.get('/class-overview/:cohort_name', async (req, res) => {
 router.post('/attendance', (req, res) => {
   let data = req.body;
   Promise.all(
-    data.map((obj) => {
+    data.map(async (obj) => {
       // check if student id, week, module, cohort_name is already in attendance.
-      return pool.query(
+      return await pool.query(
         `SELECT count(id) FROM attendance WHERE student_id = $1 AND week = $2 AND module = $3 AND cohort_name = $4
       `,
         [obj.id, obj.week, obj.module, obj.cohort_name],
