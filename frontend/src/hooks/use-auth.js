@@ -85,6 +85,7 @@ function useProvideAuth() {
 
     fetch(`${serverURL}/auth/token`, {
       method: 'post',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,

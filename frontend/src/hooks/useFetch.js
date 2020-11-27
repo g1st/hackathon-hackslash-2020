@@ -17,6 +17,7 @@ function useFetch(url, param = '') {
     });
     fetch(url, {
       method: 'get',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + auth?.user?.token,

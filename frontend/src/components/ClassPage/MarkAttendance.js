@@ -36,6 +36,7 @@ const MarkAttendance = ({
 
     fetch(`${serverURL}/api/attendance`, {
       method: 'post',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
