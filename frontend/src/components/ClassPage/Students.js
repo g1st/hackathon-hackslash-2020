@@ -35,11 +35,6 @@ const Students = ({ data }) => {
             onChange={handleSearch}
             className="class-input d-flex align-self-center"
           />
-          <StudentAttendance
-            show={showAttendance}
-            handleClose={handleAttendanceClose}
-            id={studentId}
-          />
         </InputGroup>
         {students.map((student, index) => (
           <Col key={index}>
@@ -58,6 +53,11 @@ const Students = ({ data }) => {
           </Col>
         ))}
       </>
+      <StudentAttendance
+        show={showAttendance}
+        handleClose={handleAttendanceClose}
+        id={studentId}
+      />
     </Row>
   );
 };
