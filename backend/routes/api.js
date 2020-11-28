@@ -1,6 +1,7 @@
 const passport = require('passport');
 const express = require('express');
 
+
 const { pool } = require('../db/dbConfig');
 const router = express.Router();
 
@@ -10,6 +11,8 @@ router.use(
     session: false,
   })
 );
+
+
 
 router.get('/student/attendance/:id', async (req, res) => {
   const { id } = req.params;
